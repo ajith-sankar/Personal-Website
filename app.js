@@ -279,17 +279,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Resume download functionality
     function setupResumeDownload() {
-        const downloadButtons = document.querySelectorAll('#download-resume, #resume-download');
-        
-        downloadButtons.forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // Create a sample resume content
-                const resumeContent = generateResumeContent();
-                downloadResume(resumeContent, 'Ajith-Sankar-Resume.txt');
-            });
+    const downloadButtons = document.querySelectorAll('#download-resume, #resume-download');
+    
+    downloadButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            const pdfPath = 'Resume/Ajith Sankar Resume.pdf';
+            const link = document.createElement('a');
+            link.href = pdfPath;
+            link.download = 'Ajith Sankar Resume.pdf';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            // Show feedback
+            showNotification('Resume downloaded successfully!', 'success');
         });
+    });
     }
 
     function generateResumeContent() {
